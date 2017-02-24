@@ -1,49 +1,50 @@
-let webpack = require('webpack')
-let path = require('path')
-let HtmlWebpackPlugin = require('html-webpack-plugin')
+var path = require('path');
+var webpack = require('webpack');
+var HtmlwebpackPlugin = require('html-webpack-plugin');
 
-const ROOT_PATH = path.resolve(__dirname)
-const APP_PATH = path.resolve(ROOT_PATH, 'app')
-const BUILD_PATH = path.resolve(ROOT_PATH, 'build')
-
-module.exports = {
+var ROOT_PATH = path.resolve(__dirname);
+var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
+var APP_PATH = path.resolve(ROOT_PATH, 'app');
+module.exports= {
     entry: {
-        app: path.resolve(APP_PATH, 'index.js')
+        app: path.resolve(APP_PATH, 'app.jsx')
     },
-    
     output: {
-        filename: 'bundle.js',
-        path: BUILD_PATH
+        path: BUILD_PATH,
+        filename: 'bundle.js'
     },
     
-    module: {
-        // 配置 preLoader，加入 eslint
-        // preLoaders: [{
-        //     test: '\.jsx?$',
-        //     loaders: ['eslint'],
-        //     include: APP_PATH
-        // }],
-        loaders: [{
-            test: '\.js$',
-            loader: 'babel',
-            include: APP_PATH
-        }]
-    },
-    
-    // 配置 plugin
-    plugins: [
-      new HtmlWebpackPlugin({
-          title: 'My first react app'
-      })
-    ],
-    
-    // 开启 dev source map
+    //enable dev source map
     devtool: 'eval-source-map',
-    
+    //enable dev server
     devServer: {
         historyApiFallback: true,
-        hot: true,
-        inline: true,
+        // hot: true,
+        // inline: true,
         // progress: true
-    }
+    },
+    resolve: {
+        extensions: ['', '.js', '.jsx'],
+        root: APP_PATH
+    },
+    module: {
+        preLoaders: [
+            {
+                test: /\.jsx?$/,
+                loaders: ['eslint'],
+                include: APP_PATH
+            }
+        ],
+        loaders: [
+            {
+                test: /\.jsx?$/,
+                loaders: ['babel'],
+                include: APP_PATH
+            }    ]
+    },
+    plugins: [
+        new HtmlwebpackPlugin({
+            title: 'My first react app'
+        })
+    ]
 }
