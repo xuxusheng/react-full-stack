@@ -19,9 +19,9 @@ module.exports= {
     //enable dev server
     devServer: {
         historyApiFallback: true,
-        // hot: true,
-        // inline: true,
-        // progress: true
+        hot: true,
+        inline: true,
+        progress: true
     },
     resolve: {
         extensions: ['', '.js', '.jsx'],
